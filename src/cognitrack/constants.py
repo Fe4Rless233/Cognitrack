@@ -1,0 +1,6 @@
+"""Label constants used across CogniTrack."""
+
+LOW_LOAD_REST = 0
+MODERATE_WORKLOAD = 1
+CRITICAL_FATIGUE = 2
+ALERT_THRESHOLD_PERCENT = 81.0

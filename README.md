@@ -1,1 +1,34 @@
 # Cognitrack
+
+CogniTrack is an EEG-driven machine-learning pipeline for cognitive load and fatigue risk monitoring.
+
+## Implemented pipeline
+
+1. **Ground truth labeling** from task design:
+   - `0` low load/rest (`rest_eyes_closed`, `rest_eyes_open`)
+   - `1` moderate workload (`1-back`)
+   - `2` critical fatigue/high stress (`3-back`, `mental_math`)
+2. **Feature engineering** per 1-second epoch:
+   - `z(theta/alpha)`
+   - `z(theta/beta)`
+   - `z(beta/(theta+alpha))`
+3. **Modeling**:
+   - SVM with `GridSearchCV` tuning over `C`, `gamma`, and `kernel` with `class_weight='balanced'`
+   - Logistic Regression baseline with probability output
+4. **Risk gauge**:
+   - `P(fatigue) * 100`
+   - critical alert at `>= 81%`
+
+## Quick start
+
+```bash
+pip install -e .
+pytest -q
+```
+
+## Package layout
+
+- `/home/runner/work/Cognitrack/Cognitrack/src/cognitrack/dataset.py` — task labels and secondary verification score
+- `/home/runner/work/Cognitrack/Cognitrack/src/cognitrack/features.py` — spectral ratio features and z-scores
+- `/home/runner/work/Cognitrack/Cognitrack/src/cognitrack/model.py` — SVM tuning, Logistic Regression, and risk gauge
+- `/home/runner/work/Cognitrack/Cognitrack/src/cognitrack/pipeline.py` — end-to-end training and scoring orchestration
