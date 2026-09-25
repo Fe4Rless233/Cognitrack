@@ -2,3 +2,5 @@ __pycache__/
 *.py[cod]
 *.egg-info/
 .pytest_cache/
+data/cognitrack_full_study_epochs.csv
+data/cognitrack_participant_summary.csv
